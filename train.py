@@ -17,7 +17,7 @@ class QlearningConfig:
         self.env = 'CliffWalking-v0'  # 0 up, 1 right, 2 down, 3 left
         self.result_path = curr_path + "/outputs/" + self.env + '/' + '/results/'  # path to save results
         self.model_path = curr_path + "/outputs/" + self.env + '/' + '/models/'  # path to save models
-        self.train_eps = 200  # 训练的episode数目
+        self.train_eps = 300  # 训练的episode数目
         self.eval_eps = 30
         self.gamma = 0.9  # reward的衰减率
         self.lr = 0.1  # learning rate

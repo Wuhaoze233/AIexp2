@@ -9,12 +9,12 @@ class QLearning(object):
         self.epsilon = 0.7
         self.sample_count = 0
         self.Q_table = np.zeros((state_dim, action_dim))  # Q表格
-        if self.sample_count > 100:
-            self.epsilon = 0.01
 
     def choose_action(self, state):
         ####################### 智能体的决策函数，需要完成Q表格方法（需要完成）#######################
         self.sample_count += 1
+        if self.sample_count > 40:
+            self.epsilon = 0.01
         if np.random.uniform(0, 1) > self.epsilon:
             action = self.predict(state)
         else:
