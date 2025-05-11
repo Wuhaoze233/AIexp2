@@ -14,7 +14,7 @@ class QLearning(object):
     def choose_action(self, state):
         ####################### 智能体的决策函数，需要完成Q表格方法（需要完成）#######################
         self.sample_count += 1
-        if self.sample_count > 100:
+        if self.sample_count > 50:
             self.epsilon = 0.1
         if np.random.uniform(0, 1) > self.epsilon:
             action = self.predict(state)
@@ -23,10 +23,7 @@ class QLearning(object):
         return action
 
     def predict(self, state):
-        Q_list = self.Q_table[state, :]
-        Q_max = np.max(Q_list)
-        action = np.where(Q_list == Q_max)[0]
-        action = action[0]
+        action = np.argmax(self.Q_table[state, :])
         return action
 
     def update(self, state, action, reward, next_state, next_action, done):
