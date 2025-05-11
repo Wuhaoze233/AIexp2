@@ -44,14 +44,16 @@ def train(cfg, env, agent):
     for i_ep in range(cfg.train_eps):
         ep_reward = 0  # 记录每个episode的reward
         state = env.reset()[0]  # 重置环境, 重新开一局（即开始新的一个episode）
+        action = agent.choose_action(state)  # 根据算法选择一个动作
         while True:
-            action = agent.choose_action(state)  # 根据算法选择一个动作
             next_state, reward, done, *_ = env.step(action)  # 与环境进行一次动作交互
             if i_ep % cfg.render_frqc == 0 and i_ep != 0:
                 env.render() # 渲染动作并显示
-            agent.update(state, action, reward, next_state,
+            next_action = agent.choose_action(next_state)
+            agent.update(state, action, reward, next_state, next_action,
                          done)  # Q-learning算法更新
             state = next_state  # 存储上一个观察值
+            action = next_action # 存储上一个动作
             ep_reward += reward
             if done:
                 break

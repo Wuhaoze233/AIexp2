@@ -28,13 +28,13 @@ class QLearning(object):
         action = action[0]
         return action
 
-    def update(self, state, action, reward, next_state, done):
+    def update(self, state, action, reward, next_state, next_action, done):
         ############################ Q表格的更新方法（需要完成）##################################
         Q_predict = self.Q_table[state, action]
         if done:
             Q_target = reward
         else:
-            Q_target = reward + self.gamma * np.max(self.Q_table[next_state, :]) ####################SARSA在此处修改
+            Q_target = reward + self.gamma * self.Q_table[next_state, next_action] ####################SARSA在此处修改
         self.Q_table[state, action] += self.lr * (Q_target - Q_predict)
         pass
 
